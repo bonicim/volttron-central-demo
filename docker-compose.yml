@@ -1,8 +1,15 @@
 version: '3'
 services:
-  volttron:
-    hostname: vc
-    image: volttron/volttron:develop
+  volttron1:
+    hostname: vc1
+    build:
+      context: .
+      args:
+        - VHOME_SUFFIX=.volttron1
+        - INSTANCE_NAME=platform1
+
+    image: testvolt/testvolt
+   #image: volttron/volttron:develop
     ports:
       - 8080:8080
       #- 23916:22916
@@ -10,8 +17,37 @@ services:
       #- 6671:5671    # ampqs port
       #- 25671:15671  # management port
     volumes:
-      - ./platform_config.yml:/platform_config.yml
+      - ./platform_config_v1.yml:/platform_config.yml
       - ./configs:/home/volttron/configs
     environment:
       - CONFIG=/home/volttron/configs
       - LOCAL_USER_ID=1000
+#  volttron2:
+#    hostname: vc2
+#    build:
+#      context: .
+#    image: testvolt/testvolt
+##    image: volttron/volttron:develop
+#    ports:
+#      - 8081:8080
+#    volumes:
+#      - ./platform_config_v2.yml:/platform_config.yml
+#      - ./configs:/home/volttron/configs
+#    environment:
+#      - CONFIG=/home/volttron/configs
+#      - LOCAL_USER_ID=1000
+#  volttron3:
+#    hostname: vc3
+##    image: volttron/volttron:develop
+#    build:
+#      context: .
+#    image: testvolt/testvolt
+#    ports:
+#      - 8082:8080
+#    volumes:
+#      - ./platform_config_v3.yml:/platform_config.yml
+#      - ./configs:/home/volttron/configs
+#    environment:
+#      - CONFIG=/home/volttron/configs
+#      - LOCAL_USER_ID=1000
+#
